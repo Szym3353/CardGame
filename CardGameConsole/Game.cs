@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CardGameConsole;
 
-//DA SIE WYBRAĆ ZŁY PROFIL, ZA DUŻY ZNACZY SIE
 
 namespace ConsoleApp1
 {
@@ -38,7 +37,7 @@ namespace ConsoleApp1
             //Rozdanie kart
             foreach (Player player in players)
             {
-                player.AddCards(deck.Draw(1));
+                player.AddCards(deck.Draw(7));
             }
 
             currentTurn = 0;
@@ -116,7 +115,7 @@ namespace ConsoleApp1
                     PrintColoredName(handCard);
                 }
 
-                Console.WriteLine($"\nWybierz indeks karty, którą chcesz zagrać, lub wpisz 'd' aby pobrać kartę ze środka.");
+                Console.WriteLine($"\n\n\nWybierz indeks karty, którą chcesz zagrać, lub wpisz 'd' aby pobrać kartę ze środka.");
                 string playerInput = Console.ReadLine();
                 if(playerInput.ToLower() == "d")
                 {
@@ -128,7 +127,7 @@ namespace ConsoleApp1
                         break;
                     }
 
-                    currentPlayer.AddCards(deck.Draw(1));
+                    currentPlayer.AddCards(deck.Draw(7));
                     
                     break;
                 }else if(int.TryParse(playerInput, out chosenIndex))
@@ -136,7 +135,7 @@ namespace ConsoleApp1
                     if (chosenIndex >= 0 && chosenIndex < currentPlayer.HandCount)
                     {
                         chosenCard = currentPlayer.Hand[chosenIndex];
-                        //Sprawdź czy można zagrać.
+                        //Sprawdź czy można zagrać
                         if(CanPlayCard(chosenCard))
                         {
                             deck.DiscardCard(chosenCard);
@@ -165,7 +164,6 @@ namespace ConsoleApp1
                 }
             }
 
-            //Następny gracz
             NextPlayer();
         }
 
@@ -173,7 +171,6 @@ namespace ConsoleApp1
         {
             Card currentMiddleCard = deck.FirstCard;
 
-            //Dodać sprawdzanie czy karta jest czarna albo czy wild jest aktywny.
             if(wildActive == true)
             {
                 return currentMiddleCard.Value == "+2" && (card.Value == "+2" || card.Value == "rev");

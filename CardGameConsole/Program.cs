@@ -14,13 +14,35 @@ using (var db = new AppDbContext())
 
     while (true)
     {
-        Console.Clear();
-        Console.WriteLine("Testowa wersja gry");
-        Console.WriteLine("Wybierz opcje: ");
-        Console.WriteLine("1. Rozpocznij grę");
-        Console.WriteLine("2. Profile");
-        Console.WriteLine("3. Historia gier");
-        Console.WriteLine("0. Wyjdź");
+    Console.Clear();
+
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.WriteLine("                                                                           ");
+    Console.WriteLine(",--. ,--.,--.  ,--. ,-----.      ,-----.,--.    ,-----. ,--.  ,--.,------. ");
+    Console.WriteLine("|  | |  ||  ,'.|  |'  .-.  '    '  .--./|  |   '  .-.  '|  ,'.|  ||  .---'");
+    Console.WriteLine("|  | |  ||  |' '  ||  | |  |    |  |    |  |   |  | |  ||  |' '  ||  `--,  ");
+    Console.WriteLine("'  '-'  '|  | `   |'  '-'  '    '  '--'\\|  '--.'  '-'  '|  | `   ||  `---. ");
+    Console.WriteLine(" `-----' `--'  `--' `-----'      `-----'`-----' `-----' `--'  `--'`------'");
+    Console.ResetColor();
+
+    Console.WriteLine("\n");
+
+    Console.WriteLine("Wybierz opcję:\n");
+
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("1. Rozpocznij grę");
+
+    Console.ForegroundColor = ConsoleColor.Blue;
+    Console.WriteLine("2. Profile");
+
+    Console.ForegroundColor = ConsoleColor.Green;   
+    Console.WriteLine("3. Historia gier");
+
+    Console.ForegroundColor = ConsoleColor.Yellow;  
+    Console.WriteLine("0. Wyjdź");
+
+
+    Console.ResetColor();
 
 
         string input = Console.ReadLine();
@@ -32,6 +54,12 @@ using (var db = new AppDbContext())
                 Console.WriteLine("Podaj liczbę graczy (minimum 2) : ");
                 
                 int playerCount = int.Parse(Console.ReadLine());
+                if (playerCount < 2)
+            {
+                Console.WriteLine("Zbyt mała liczba graczy.");
+                Console.ReadKey();
+                break;
+            }
                 List<Profile> players = new List<Profile>();
             if (playerCount < 2)
             {
@@ -47,12 +75,14 @@ using (var db = new AppDbContext())
 
                     //wybierz profil albo graj jako gość
                     Console.Clear();
-                        Console.WriteLine($"Gracz {i + 1} - wybierz profil");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine($"Gracz numer {i + 1} - wybór profilu \n");
+                    Console.ResetColor();
                         for (int j = 0; j < profiles.Count; j++)
                         {
                             Console.WriteLine($"{j}. {profiles[j].Name}");
                         }
-                        Console.WriteLine("x - graj bez profilu");
+                        Console.WriteLine("\nx - graj bez profilu");
 
                         string playerSelectionInput = Console.ReadLine();
 
@@ -80,7 +110,9 @@ using (var db = new AppDbContext())
                 Profiles();
                 break;
             case "3":
-                //historia gier
+            //historia gier
+            Console.WriteLine("Implementacja w przyszłości. Wciśnij dowolny klawisz aby wrócić do menu głównego.");
+            Console.ReadKey();
                 break;
             case "0":
                 return;
@@ -96,15 +128,25 @@ void Profiles()
     {
 
         Console.Clear();
-        Console.WriteLine("Lista profili:");
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("====================================");
+        Console.WriteLine("        <> LISTA PROFILI <>        ");
+        Console.WriteLine("====================================\n\n");
+        Console.ResetColor();
 
         for (int i = 0; i < profiles.Count; i++)
         {
             Console.WriteLine($"{i}. {profiles[i].Name}");
         }
-        Console.WriteLine("\n\nWybierz indeks profilu aby zobaczyć statystyki lub nim zarządzać");
-        Console.WriteLine("n - Utwórz nowy profil");
-        Console.WriteLine("b - Wróć");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("\n> Wybierz indeks profilu, aby zobaczyć statystyki lub zarządzać nim.\n\n");
+        Console.ResetColor();
+
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("> Naciśnij 'n' - Utwórz nowy profil");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("> Naciśnij 'b' - Wróć do menu głównego");
+        Console.ResetColor();
 
         string input = Console.ReadLine();
 
@@ -124,14 +166,28 @@ void ProfileDetails(Profile profile)
     while (true)
     {
         Console.Clear();
-        Console.WriteLine($"Informacje o profilu: {profile.Name}");
-        Console.WriteLine($"🎮 Rozegrane gry: {profile.GamesPlayed}");
-        Console.WriteLine($"🏆 Wygrane: {profile.GamesWon}");
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("====================================");
+        Console.WriteLine($"   INFORMACJE O PROFILU: {profile.Name}   ");
+        Console.WriteLine("====================================\n\n");
+        Console.ResetColor();
 
-        Console.WriteLine("\nOpcje:");
-        Console.WriteLine("1. 🔧 Zmień nazwę");
-        Console.WriteLine("2. 🗑 Usuń profil");
-        Console.WriteLine("3. Powrót");
+        Console.WriteLine($"<> Rozegrane gry: {profile.GamesPlayed}");
+        Console.WriteLine($"<> Wygrane: {profile.GamesWon}\n\n");
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("\n====================================");
+        Console.WriteLine("             OPCJE                  ");
+        Console.WriteLine("====================================\n\n");
+        Console.ResetColor();
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("1 -> Zmień nazwę");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("2 -> Usuń profil");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("3 -> Powrót");
+        Console.ResetColor();
 
         string input = Console.ReadLine();
 
